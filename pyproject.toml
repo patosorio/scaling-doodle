@@ -1,0 +1,8 @@
+[tool.ruff.lint]
+# Enable quote consistency checks
+select = ["Q"]
+
+[tool.ruff.lint.flake8-quotes]
+# Use single quotes (PEP 8 style)
+inline-quotes = "single"
+multiline-quotes = "single"

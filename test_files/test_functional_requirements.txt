@@ -1,0 +1,30 @@
+MVP Functional Requirements
+
+1) Lead Intake
+- Public form: name, email, phone, travel dates (flexible checkbox), group size, interests (culture, desert, gastronomy, shopping, wellness), budget band.
+- Auto-create a lead in the CRM pipeline with stage=New.
+
+2) CRM Pipeline
+- Stages: New, Qualified, Proposal Sent, Booked, In Trip, Completed.
+- Kanban view + filters by agent, date, budget band.
+- Activity log: notes, attachments, timestamps.
+
+3) Itinerary Builder
+- Day-by-day structure: location, hotel, activities, transfers, meal notes.
+- Price summary: per-person, total, deposit amount.
+- Export: client PDF proposal (logo, brand colors, photos).
+
+4) Vendor Coordination
+- Log requests and replies (hotels, drivers, guides).
+- Track costs, confirmation status, and due dates.
+
+5) Roles & Access
+- Owner: all permissions, margin view.
+- Agent: manage own leads and itineraries.
+
+6) Search
+- Semantic search across leads, itineraries, vendor logs, and proposals.
+
+7) Non-Functional
+- Fast first page load for CRM users.
+- Simple deployment and basic monitoring.

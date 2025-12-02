@@ -1,0 +1,25 @@
+Business-Friendly Risks & Concerns
+
+1) Slow Vendor Responses
+- Impact: Delays proposals; clients may book elsewhere.
+- Mitigation: Track request timestamps and auto-reminders; show “pending items” in the proposal with clear expectations.
+
+2) Over-Promising Availability
+- Impact: Last-minute changes hurt trust and margins.
+- Mitigation: Require vendor confirmation status before sending final proposal; mark tentative items clearly.
+
+3) Inconsistent Pricing & Margin Visibility
+- Impact: Lost profit or confusing quotes.
+- Mitigation: Standardize cost inputs; show margin only to Owner; lock version when exported.
+
+4) Manual Errors in Itineraries
+- Impact: Wrong dates, missed transfers, unhappy clients.
+- Mitigation: Templates, required fields, sanity checks (e.g., travel time between cities).
+
+5) Data Privacy & Client Trust
+- Impact: Brand damage if mismanaged.
+- Mitigation: Store minimal PII; restrict access by role; clear data retention policy.
+
+6) Scope Creep
+- Impact: Delays MVP, bloats budget.
+- Mitigation: Strict MVP scope; backlog for nice-to-haves; time-box pilot.
