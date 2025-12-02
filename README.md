@@ -48,7 +48,7 @@ Upload files and generate a project brief.
 
 **Request:** `multipart/form-data` with one or more files
 
-**Response:** JSON with project context, objectives, risks, and identifiers
+**Response:** JSON with project_id and brief
 
 #### Example curl
 
@@ -69,19 +69,8 @@ curl -X POST http://127.0.0.1:8000/brief \
 
 ```json
 {
-  "project_context": "A travel CRM platform for a Morocco-based luxury travel agency...",
-  "main_objectives": [
-    "Centralize lead management and client tracking",
-    "Build an itinerary creation tool with pricing",
-    "Enable semantic search across all project data"
-  ],
-  "key_risks": [
-    "Timeline pressure with 8-week MVP deadline",
-    "Integration complexity with external booking systems",
-    "Data migration from existing spreadsheets"
-  ],
   "project_id": "f65d3a2f-2fc7-4d03-bcca-66569d2949d0",
-  "store_name": "fileSearchStores/project-f65d3a2f-2fc7..."
+  "brief": "Talicada is a luxury Moroccan tour operator seeking to modernize their manual booking process. The MVP aims to centralize lead management, streamline itinerary creation with pricing, and reduce proposal turnaround time to under 24 hours. Key risks include the aggressive 6-8 week timeline, potential vendor response delays, and maintaining data privacy for high-end clients."
 }
 ```
 
@@ -92,37 +81,27 @@ curl -X POST http://127.0.0.1:8000/brief \
 Semantic search over indexed project documents.
 
 **Request:** `application/json` with:
+- `project_id` (required): Project identifier from `/brief` response
 - `query` (required): Your search question
-- `project_id` or `store_name`: Identifier from `/brief` response
 
-**Response:** JSON with answer, relevant excerpts, and sources
+**Response:** JSON with search results
 
 #### Example curl
 
 ```bash
-# Using project_id
 curl -X POST http://127.0.0.1:8000/search \
   -H "Content-Type: application/json" \
-  -d '{"query": "What are the main technical risks?", "project_id": "f65d3a2f-2fc7-4d03-bcca-66569d2949d0"}'
-
-# Using store_name directly
-curl -X POST http://127.0.0.1:8000/search \
-  -H "Content-Type: application/json" \
-  -d '{"query": "What features are planned for the MVP?", "store_name": "fileSearchStores/project-f65d3a2f-2fc7..."}'
+  -d '{"project_id": "f65d3a2f-2fc7-4d03-bcca-66569d2949d0", "query": "What are the main risks?"}'
 ```
 
 **Example Response:**
 
 ```json
 {
-  "answer": "The main technical risks include timeline pressure...",
-  "relevant_excerpts": [
-    "8-week timeline is aggressive for full MVP scope",
-    "External API dependencies may cause delays"
-  ],
-  "sources": ["risk_and_concerns.txt", "project_overview.md"],
-  "query": "What are the main technical risks?",
-  "store_name": "fileSearchStores/project-f65d3a2f-2fc7..."
+  "results": [
+    {"file": "risk_and_concerns.txt", "snippet": "Slow vendor responses may delay proposals"},
+    {"file": "project_overview.md", "snippet": "Timeline: 6-8 weeks for a usable pilot"}
+  ]
 }
 ```
 

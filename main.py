@@ -2,7 +2,7 @@ import uuid
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List
 from gemini_client import create_project_and_generate_brief, semantic_search
 
 app = FastAPI(title='AI Project Brief Assistant')
@@ -11,9 +11,8 @@ project_stores: dict[str, str] = {}
 
 
 class SearchRequest(BaseModel):
+    project_id: str
     query: str
-    project_id: Optional[str] = None
-    store_name: Optional[str] = None
 
 
 @app.post('/brief')
@@ -69,28 +68,15 @@ async def search_project(request: SearchRequest):
     Content-Type: application/json
 
     Body:
+    - project_id (required): Project identifier from /brief response
     - query (required): The search query
-    - project_id: Project identifier from /brief response
-    - store_name: File Search Store name (alternative to project_id)
     """
     try:
-        # solution for store_name from project_id if not provided directly
-        if request.store_name:
-            resolved_store = request.store_name
-        elif request.project_id:
-            resolved_store = project_stores.get(request.project_id)
-            if not resolved_store:
-                raise HTTPException(
-                    status_code=404,
-                    detail=(
-                        f"Project '{request.project_id}' not found. "
-                        "Use store_name directly or create a new brief."
-                    ),
-                )
-        else:
+        resolved_store = project_stores.get(request.project_id)
+        if not resolved_store:
             raise HTTPException(
-                status_code=400,
-                detail="Either 'project_id' or 'store_name' is required",
+                status_code=404,
+                detail=f"Project '{request.project_id}' not found."
             )
 
         if not request.query.strip():

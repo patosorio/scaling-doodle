@@ -102,11 +102,13 @@ def create_project_and_generate_brief(
         .removesuffix('```')
         .strip()
     )
-    brief = json.loads(text)
-    brief['project_id'] = project_id
-    brief['store_name'] = store.name
+    result = json.loads(text)
 
-    return brief
+    return {
+        'project_id': project_id,
+        'brief': result.get('brief', ''),
+        'store_name': store.name
+    }
 
 
 def semantic_search(store_name: str, query: str) -> Dict:
@@ -138,7 +140,5 @@ def semantic_search(store_name: str, query: str) -> Dict:
         .strip()
     )
     result = json.loads(text)
-    result['query'] = query
-    result['store_name'] = store_name
 
     return result

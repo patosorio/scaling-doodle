@@ -6,24 +6,25 @@ create a concise, client-friendly project brief.
 Return ONLY valid JSON in this exact format (no extra text, no markdown):
 
 {
-    "project_context": "1-2 sentence background and scope",
-    "main_objectives": ["bullet 1", "bullet 2", "..."],
-    "key_risks": ["risk 1", "risk 2", "..."]
+    "brief": "A single paragraph summarizing the project context, main objectives, and key risks in non-technical terms."
 }
 
-Be professional, non-technical, and cite sources when possible.
+Keep it professional, concise, and under 150 words.
 '''
 
 PROMPT_SEARCH = '''
 You are a helpful assistant. Using ONLY the indexed project documents,
-answer the following query. Provide relevant excerpts and cite your sources.
+answer the following query with relevant excerpts.
 
 Query: {query}
 
 Return ONLY valid JSON in this exact format (no extra text, no markdown):
 {{
-    "answer": "Your detailed answer based on the documents",
-    "relevant_excerpts": ["excerpt 1 from documents", "excerpt 2", "..."],
-    "sources": ["filename or section referenced", "..."]
+    "results": [
+        {{"file": "filename", "snippet": "short relevant excerpt"}},
+        {{"file": "filename", "snippet": "short relevant excerpt"}}
+    ]
 }}
+
+Keep snippets concise and directly relevant to the query.
 '''
